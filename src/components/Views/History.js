@@ -1,5 +1,7 @@
 import React from 'react';
 import Entry from '../Elements/HistoryEntry'
+import { Container } from '@material-ui/core'
+
 
 export default function History() {
     const History = JSON.parse(localStorage.getItem('footprint'))
@@ -24,8 +26,10 @@ export default function History() {
 
     return (
         <div>
-            <p style={{textAlign: 'center'}}>閲覧データ</p>
-            {EntryData}
+            <Container>
+                <p style={{textAlign: 'center'}}>閲覧データ</p>
+                {EntryData}
+            </Container>
         </div>
     )
 }

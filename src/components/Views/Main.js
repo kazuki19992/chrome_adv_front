@@ -1,5 +1,6 @@
 import React from 'react';
 import Entry from '../Elements/HistoryEntry'
+import { Container } from '@material-ui/core'
 
 export default function Main() {
     const accessRank = JSON.parse(localStorage.getItem('rank'))
@@ -26,7 +27,12 @@ export default function Main() {
 
     return (
         <div style={{width: '50%'}}>
-            {top3}
+            <Container style={{height: '40vh'}}>
+                {top3}
+            </Container>
+            <Container>
+                <p>てすと</p>
+            </Container>
         </div>
     )
 }

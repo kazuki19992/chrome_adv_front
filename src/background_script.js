@@ -11,8 +11,31 @@ const getData = () => new Promise((resolve, reject) => {
         resolve({url: tab.url, title: tab.title})
     })
 })
+
+const redirect = (param) => {
+    chrome.tabs.getSelected(null, (tab) => {
+        //Your code below...
+        var myNewUrl = "https://chrome-adv-okorare.netlify.app/" + encodeURIComponent(param);
+        // var myNewUrl = "http://localhost:3000/" + encodeURIComponent(param);
+        console.log(tab)
+
+        //Update the url here.
+        chrome.tabs.update(tab.id, {url: myNewUrl});
+    });
+}
+
 // localStorage.removeItem('footprint')
 // localStorage.removeItem('rank')
+
+const blackWebSites = [
+    'twitter.com',
+    'www.youtube.com',
+    'techacademy.jp',
+    'www.sejuku.net',
+    'chiebukuro.yahoo.co.jp',
+    'www.nicovideo.jp'
+]
+const limit = 50
 
 setInterval(async () => {
     const now = dayjs().format('HH:mm');
@@ -20,8 +43,21 @@ setInterval(async () => {
     const data = await getData()
     const url = data.url
     const title = data.title
+    const domain = GetHostNameFromURL(url)
 
     addLocalStorage(url, title, now)
+
+    for(const blackDomain of blackWebSites){
+        // ブラックドメインAND制限回数を超えたらリダイレクトする
+        if(blackDomain === domain && getAccessCount(domain) >= limit){
+            if(url !== "https://twitter.com/Tech_Kazu"){
+                console.log(domain + "は制限回数を超えました");
+                redirect(domain)
+            }else{
+                console.log("あなたは許されました。")
+            }
+        }
+    }
 
 }, 3000);
 
@@ -198,4 +234,16 @@ const qsortArray = (array, start, end) => {
     }
 
     return [ ...array ]
+}
+
+// 現在のページが何回アクセスされたかを確認
+const getAccessCount = (domain) => {
+    // ランキングデータを取得する
+    let rankingData = JSON.parse(localStorage.getItem('rank'))
+
+    for(const datacell of rankingData){
+        if(datacell.domain === domain){
+            return datacell.count
+        }
+    }
 }
