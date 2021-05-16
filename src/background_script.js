@@ -17,7 +17,7 @@ const redirect = (param) => {
         //Your code below...
         var myNewUrl = "https://chrome-adv-okorare.netlify.app/" + encodeURIComponent(param);
         // var myNewUrl = "http://localhost:3000/" + encodeURIComponent(param);
-        console.log(tab)
+        // console.log(tab)
 
         //Update the url here.
         chrome.tabs.update(tab.id, {url: myNewUrl});
@@ -51,10 +51,10 @@ setInterval(async () => {
         // ブラックドメインAND制限回数を超えたらリダイレクトする
         if(blackDomain === domain && getAccessCount(domain) >= limit){
             if(url !== "https://twitter.com/Tech_Kazu"){
-                console.log(domain + "は制限回数を超えました");
+                // console.log(domain + "は制限回数を超えました");
                 redirect(domain)
             }else{
-                console.log("あなたは許されました。")
+                // console.log("あなたは許されました。")
             }
         }
     }
@@ -81,13 +81,13 @@ function addLocalStorage(url, title, now){
         existDataList = []
     }
     if(!/^devtools:\/\/devtools\/bundled\/devtools_app\.html/.test(json.url)){
-        console.log(GetHostNameFromURL(json.url))
+        // console.log(GetHostNameFromURL(json.url))
         if(existDataList.length){
             // 配列が存在する場合
 
             // 配列の最初の値を取得する
             const compData = existDataList[0]
-            console.log('配列が存在しました')
+            // console.log('配列が存在しました')
 
             if(compData.day !== dayjs().format('MM/DD')){
                 // 日付が変わった場合は削除する
@@ -108,9 +108,9 @@ function addLocalStorage(url, title, now){
                 AddRanking(GetHostNameFromURL(json.url))
 
                 localStorage.setItem('footprint', JSON.stringify(existDataList))
-                console.log('書き込みました')
+                // console.log('書き込みました')
             }else{
-                console.log("同じだったよ！");
+                // console.log("同じだったよ！");
             }
         }else{
             // 配列が存在しない場合
@@ -120,7 +120,7 @@ function addLocalStorage(url, title, now){
             AddRanking(GetHostNameFromURL(json.url))
 
             localStorage.setItem('footprint', JSON.stringify(existDataList))
-            console.log('初期化')
+            // console.log('初期化')
         }
     }
 
@@ -132,7 +132,7 @@ const GetHostNameFromURL = (url) => {
         const u = new URL(url);
         return u.hostname;
     } catch(err) {
-        console.log(err);
+        // console.log(err);
         return null;
     }
 }
@@ -174,7 +174,7 @@ const AddRanking = (domain) => {
         // スプレッド構文で展開する
         rankingData = qsortArray( [ ...rankingData ], 0, rankingData.length - 1 )
 
-        console.log(rankingData)
+        // console.log(rankingData)
 
         localStorage.setItem('rank', JSON.stringify(rankingData))
 

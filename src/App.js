@@ -16,9 +16,14 @@ function App() {
     console.log(tab.url)
   })
 
+  const date = new Date()
+  const day = [
+    '日', '月', '火', '水', '木', '金', '土'
+  ]
+
   return (
     <div className="App">
-      <Header title='Chrome'/>
+      <Header title='お前観察日記' day={(date.getMonth() + 1) + '月' + date.getDate() + '日 (' + day[date.getDay()] + ')'} />
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <Container style={{position: 'fixed', left: 0, top: '10vh'}}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Entry from '../Elements/HistoryEntry'
 import { Container } from '@material-ui/core'
+import Chrome from '../Elements/ChromeChang'
 
 export default function Main() {
     const accessRank = JSON.parse(localStorage.getItem('rank'))
@@ -18,7 +19,7 @@ export default function Main() {
     if(accessRank.length < 3){
         top3.unshift(<p style={{textAlign: 'center'}}>3つ以上のサイトにアクセスしてね</p>)
     }else{
-        top3.unshift(<p style={{textAlign: 'center'}}><span style={{fontWeight: 'bold', fontSize: '75%'}}>Chromeちゃんを差し置いて</span>よく見てるサイト</p>)
+        top3.unshift(<p style={{textAlign: 'center'}}><span style={{fontWeight: 'bold', fontSize: '75%', color: '#ff0000'}}>Chromeちゃんを差し置いて</span><br />お前がよく見てるサイト</p>)
         for(let i = 0; i < 3; i++){
             top3.push(<Entry rank={(i + 1) + " "} text={omit(accessRank[i].domain)(20)('(以下略)') + ' (' + accessRank[i].count + '回)'} href={"https://" + accessRank[i].domain} bg='#ffc72b' />)
         }
@@ -27,11 +28,11 @@ export default function Main() {
 
     return (
         <div style={{width: '50%'}}>
-            <Container style={{height: '40vh'}}>
+            <Container style={{height: '30vh'}}>
                 {top3}
             </Container>
             <Container>
-                <p>てすと</p>
+                <Chrome />
             </Container>
         </div>
     )

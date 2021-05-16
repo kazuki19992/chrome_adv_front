@@ -34,9 +34,9 @@ export default function ButtonAppBar(props) {
                     <Typography variant="h6" className={classes.title}>
                         {props.title}
                     </Typography>
-                    {/* <span onClick={removeHistory}>
-                        <SettingsIcon /> 履歴削除(残り3回)
-                    </span> */}
+                    <span style={{fontWeight: 'bold'}}>
+                        {props.day}
+                    </span>
                 </Toolbar>
             </AppBar>
             <div className={classes.offset} />

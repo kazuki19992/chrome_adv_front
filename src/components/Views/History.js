@@ -27,7 +27,7 @@ export default function History() {
     return (
         <div>
             <Container>
-                <p style={{textAlign: 'center'}}>閲覧データ</p>
+                <p style={{textAlign: 'center'}}>閲覧履歴</p>
                 {EntryData}
             </Container>
         </div>
